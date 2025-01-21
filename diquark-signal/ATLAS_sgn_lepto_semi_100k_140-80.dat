@@ -1,0 +1,20 @@
+set lhapdf to /data/analysis/iduminic/MG5_aMC_v3_3_2/HEPTools/lhapdf6_py3/bin/lhapdf-config
+import model diquarkVquark2023_UFO/
+generate p p > suu, (suu > chi chi, (chi > w+ b, w+ > j j), (chi > w+ b, w+ > l+ vl))
+output /data/analysis/iduminic/diquark-signal/ATLAS_SGN/ATLAS_Semi_Lepto_100k_140TeV_80TeV
+launch--name=run_100k
+shower=Pythia8
+detector=Delphes
+done
+set nevents 100000
+#set LHC 13
+set MSuu 8000
+set ebeam1 7000
+set ebeam2 7000
+#set bwcutoff 10
+set cut_decays F
+set pdfwgt F
+set use_syst F
+set fixed_ren_scale F
+set fixed_fac_scale F
+/data/analysis/iduminic/diquark-signal/ATLAS_SGN/ATLAS_Semi_Lepto_100k_140TeV_80TeV/Cards/delphes_card_ATLAS.dat

@@ -1,0 +1,25 @@
+import model diquarkVquark2023_UFO/
+generate p p > suu, (suu > chi chi, (chi > z t, z > l+ l-), (chi > z t, z > l+ l-))
+#generate p p > suu, (suu > chi chi, (chi > z t, z > l+ l-), (chi > z t, z > vl vl~))
+#generate p p > suu, (suu > chi chi, (chi > z t, z > l+ l-), (chi > z t, z > j j))
+#generate p p > suu, (suu > chi chi, (chi > z t, z > vl vl~), (chi > z t, z > j j))
+#generate p p > suu, (suu > chi chi, (chi > z t, z > vl vl~), (chi > z t, z > vl vl~))
+#generate p p > suu, (suu > chi chi, (chi > z t, z > j j), (chi > z t, z > j j))
+output /data/analysis/iduminic/diquark-signal/Zt_ATLAS_100k-ll-ll
+launch -n run_ll-ll-70
+shower=Pythia8
+detector=Delphes
+done
+set nevents 10
+set MSuu 7000
+set ebeam1 6800
+set ebeam2 6800
+#set bwcutoff 10
+set cut_decays F
+set pdfwgt F
+set use_syst F
+set fixed_ren_scale F
+set fixed_fac_scale F
+/data/analysis/iduminic/MG5_aMC_v3_3_2/delphes_card_ATLAS.dat
+launch -n run_ll-ll-85
+set MSuu 8500

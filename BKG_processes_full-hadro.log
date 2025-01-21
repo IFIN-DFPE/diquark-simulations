@@ -1,0 +1,66 @@
+b.01  HardQCD:gg2bbbar   (default = on)
+b.02  HardQCD:gg2ccbar   (default = on)
+b.03  HardQCD:gg2gg   (default = on)
+b.04  HardQCD:qqbar2gg   (default = on)
+b.05  HardQCD:gg2qqbar   (default = on)
+b.06  HardQCD:qg2qg   (default = on)
+b.07  HardQCD:qqbar2bbbar   (default = on)
+b.08  HardQCD:qqbar2ccbar   (default = on)
+b.09  HardQCD:qq2qq   (default = on)
+b.10  HardQCD:qqbar2qqbarNew   (default = on)
+b.11  HiggsSM:qqbar2Hbbbar   (default = on)
+b.12  HiggsSM:gg2Hbbbar   (default = on)
+b.13  HiggsSM:gg2Hg(l:t)   (default = off)
+b.14  HiggsSM:qg2Hq(l:t)   (default = off)
+b.15  HiggsSM:qqbar2Hg(l:t)   (default = off)
+b.16  HiggsSM:ffbar2H   (default = off)
+b.17  HiggsSM:gg2H   (default = off)
+b.18  HiggsSM:ffbar2HZ   (default = off)
+b.19  HiggsSM:ffbar2HW   (default = off)
+b.20  HiggsSM:ff2Hff(t:ZZ)   (default = off)
+b.21  HiggsSM:ff2Hff(t:WW)   (default = off)
+b.22  HiggsSM:gg2Httbar   (default = off)
+b.23  HiggsSM:qqbar2Httbar   (default = off)
+b.24  HiggsSM:qg2Hq   (default = off)
+b.25  WeakBosonAndParton:ffbar2Wgm   (default = off)
+b.26  WeakBosonAndParton:qg2Wq   (default = on)
+b.27  WeakBosonAndParton:qqbar2Wg   (default = on)
+b.28  WeakDoubleBoson:ffbar2ZW   (default = on)
+b.29  WeakDoubleBoson:ffbar2WW   (default = on)
+b.30  WeakDoubleBoson:ffbar2gmZgmZ
+b.31  Top:gg2ttbar   (default = on)
+b.32  Top:qqbar2ttbar   (default = on)
+
+
+01_gg_bbbar.cmnd
+02_gg_ccbar.cmnd
+03_gg_gg.cmnd
+04_qqbar_gg.cmnd
+05_gg_qqbar.cmnd
+06_qg_qg.cmnd
+07_qqbar_bbbar.cmnd
+08_qqbar_ccbar.cmnd
+09_qq_qq.cmnd
+10_qqbar_qqbarNew.cmnd
+11_qq_hbb_hadronic.cmnd
+12_gg_hbb_hadronic.cmnd
+13_gg_Hg.cmnd
+14_qg_Hq.cmnd
+15_qqbar_Hg.cmnd
+16_ff_H.cmnd
+17_gg_H.cmnd
+18_ff_HZ.cmnd
+19_ff_HW.cmnd
+20_ff_Hff.cmnd
+21_ff_Hff2.cmnd
+22_gg_Httbar.cmnd
+23_qq_Httbar.cmnd
+24_qg_Hq.cmnd
+25_ffbar_Wgm.cmnd
+26_qg_Wj_hadronic.cmnd
+27_qqbar_Wj_hadronic.cmnd
+28_ff_ZW_bkg.cmnd
+29_ff_WW_bkg.cmnd
+30_ff_gmZgmZ_bkg.cmnd
+31_gg_ttbar_bkg_hadronic.cmnd
+32_qq_ttbar_bkg_hadronic.cmnd

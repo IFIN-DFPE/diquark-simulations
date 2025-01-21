@@ -1,0 +1,61 @@
+b.11  HiggsSM:qqbar2Hbbbar   (default = on)
+b.12  HiggsSM:gg2Hbbbar   (default = on)
+b.13  HiggsSM:gg2Hg(l:t)   (default = off)
+b.14  HiggsSM:qg2Hq(l:t)   (default = off)
+b.15  HiggsSM:qqbar2Hg(l:t)   (default = off)
+b.16  HiggsSM:ffbar2H   (default = off)
+b.17  HiggsSM:gg2H   (default = off)
+b.18  HiggsSM:ffbar2HZ   (default = off)
+b.19  HiggsSM:ffbar2HW   (default = off)
+b.20  HiggsSM:ff2Hff(t:ZZ)   (default = off)
+b.21  HiggsSM:ff2Hff(t:WW)   (default = off)
+b.22  HiggsSM:gg2Httbar   (default = off)
+b.23  HiggsSM:qqbar2Httbar   (default = off)
+b.24  HiggsSM:qg2Hq   (default = off)
+b.25  WeakBosonAndParton:ffbar2Wgm   (default = off)
+b.26  WeakBosonAndParton:qg2Wq   (default = on)
+b.27  WeakBosonAndParton:qqbar2Wg   (default = on)
+b.28  WeakDoubleBoson:ffbar2ZW   (default = on)
+b.29  WeakDoubleBoson:ffbar2WW   (default = on)
+b.30  WeakDoubleBoson:ffbar2gmZgmZ
+b.31  Top:gg2ttbar   (default = on)
+b.32  Top:qqbar2ttbar   (default = on)
+
+
+
+gg_bbbar
+gg_ccbar
+gg_gg
+qqbar_gg
+gg_qqbar
+qg_qg
+qqbar_bbbar
+qqbar_ccbar
+qq_qq
+qqbar_qqbarNew
+qq_Hbbbar_leptonic
+gg_Hbbbar_leptonic
+gg_Hg
+qg_Hq
+qqbar_Hg
+ffbar_H
+gg_H
+ffbar_HZ
+ffbar_HW
+ff_Hff_ZZ
+ff_Hff_WW
+gg_Httbar
+qqbar_Httbar
+qg_Hq
+ffbar_Wgm
+qg_Wq
+qqbar_Wg
+fgm_gmZf
+fgm_Wf
+ffbar_gmZ
+ffbar_ZW
+ffbar_WW
+ffbar_gmZgmZ
+gg_ttbar
+qqbar_ttbar
+
