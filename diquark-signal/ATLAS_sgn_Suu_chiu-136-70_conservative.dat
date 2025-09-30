@@ -1,0 +1,31 @@
+set lhapdf to /data/iduminic/MG5_aMC_v3_5_7/HEPTools/lhapdf6_py3/bin/lhapdf-config
+import model diquarkVquark2023_UFO/
+#generate p p > suu, (suu > chi u, (chi > w+ b, w+ > j j))
+generate p p > suu > chi u
+output /data/iduminic/diquark-signal/ATLAS_SGN/ChiU_FullHadro/Test_crossx_chiu_10k_bwcutoff
+launch--name run_MSuu_136TeV_75
+shower=Pythia8
+detector=Delphes
+analysis=ExRoot
+done
+set nevents 10000
+set MSuu 7500
+set ebeam1 6800
+set ebeam2 6800
+set cut_decays F
+set pdfwgt F
+set use_syst F
+set fixed_ren_scale F
+set fixed_fac_scale F
+set bwcutoff 1
+compute_widths 9936661 9936662
+/data/iduminic/diquark-signal/ATLAS_SGN/ChiU_FullHadro/Test_crossx_chiu_10k_bwcutoff/Cards/delphes_card_ATLAS.dat
+#launch--name run_MSuu_136TeV_80
+#set MSuu 8000
+#compute_widths 9936661 9936662
+#launch--name run_MSuu_136TeV_825
+#set MSuu 8250
+#compute_widths 9936661 9936662
+#launch--name run_MSuu_136TeV_875
+#set MSuu 8750
+#compute_widths 9936661 9936662

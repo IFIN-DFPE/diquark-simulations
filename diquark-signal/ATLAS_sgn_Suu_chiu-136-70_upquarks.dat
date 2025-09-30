@@ -1,0 +1,29 @@
+set lhapdf to /data/iduminic/MG5_aMC_v3_5_7/HEPTools/lhapdf6_py3/bin/lhapdf-config
+import model diquarkVquark2023_UFO_upquarks/
+generate p p > suu, (suu > chi u, (chi > w+ b, w+ > j j))
+output /data/iduminic/diquark-signal/ATLAS_SGN/ATLAS_Suu_chiu_136TeV_wb_upquarks
+launch -n run_MSuu_136TeV_70
+shower=Pythia8
+detector=Delphes
+done
+set nevents 1000
+set MSuu 7000
+set ebeam1 6800
+set ebeam2 6800
+#set bwcutoff 10
+set cut_decays F
+set pdfwgt F
+set use_syst F
+set fixed_ren_scale F
+set fixed_fac_scale F
+compute_widths 9936661 9936662
+/data/iduminic/diquark-signal/ATLAS_SGN/ATLAS_Suu_chiu_136TeV_wb_upquarks/Cards/delphes_card_ATLAS.dat
+launch -n run_MSuu_136TeV_75
+set MSuu 7500
+compute_widths 9936661 9936662
+#launch -n run_MSuu_136TeV_80
+#set MSuu 8000
+#compute_widths 9936661 9936662
+#launch -n run_MSuu_136TeV_85
+#set MSuu 8500
+#compute_widths 9936661 9936662

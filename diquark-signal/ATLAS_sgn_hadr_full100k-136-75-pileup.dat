@@ -1,5 +1,5 @@
 import model diquarkVquark2023_UFO/
-generate p p > suu, (suu > chi chi, (chi > w+ b, w+ > j j), (chi > w+ b, w+ > j j))
+generate p p > suu
 output /data/analysis/iduminic/diquark-signal/ATLAS_SGN/ATLAS_Full_Hadr_100k_136TeV_75TeV_pileup
 launch--name=run_100k
 shower=Pythia8

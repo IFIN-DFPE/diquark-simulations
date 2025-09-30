@@ -1,0 +1,39 @@
+set lhapdf to /data/iduminic/MG5_aMC_v3_5_7/HEPTools/lhapdf6_py3/bin/lhapdf-config
+import model sm-full
+define w = w+ w-
+generate p p > t t~ w, (t > w+ b, w+ > j j), (t~ > w- b~, w- > j j), (w > j j)
+#generate p p > t t~ w+, (t > w+ b, w+ > j j), (t~ > w- b~, w- > j j), (w+ > j j)
+output /data/iduminic/diquark-analysis/full-hadro/bkg/multijets/TEST_ATLAS_data_136_875_ttbarw_newVersionMG5/
+launch -n run_ttbarw_136_875
+shower=Pythia8
+detector=Delphes
+analysis=ExRoot
+done
+set nevents 100000
+set ebeam1 6800
+set ebeam2 6800
+#set bwcutoff 15
+set cut_decays F
+set pdfwgt F
+set use_syst F
+set fixed_ren_scale F
+set fixed_fac_scale F
+set sde_strategy 2
+#set decay all auto
+#SLHA:useDecayTable = on
+set dsqrt_shat 8750.
+/data/iduminic/diquark-analysis/full-hadro/bkg/multijets/TEST_ATLAS_data_136_875_ttbarw_newVersionMG5/Cards/delphes_card_ATLAS.dat
+#launch -n run_ttbarw_136_725
+#set dsqrt_shat 7250.
+#launch -n run_ttbarw_136_75
+#set dsqrt_shat 7500.
+#launch -n run_ttbarw_136_775
+#set dsqrt_shat 7750.
+#launch -n run_ttbarw_136_80
+#set dsqrt_shat 8000.
+#launch -n run_ttbarw_136_825
+#set dsqrt_shat 8250.
+#launch -n run_ttbarw_136_85
+#set dsqrt_shat 8500.
+#launch -n run_ttbarw_136_875
+#set dsqrt_shat 8750.

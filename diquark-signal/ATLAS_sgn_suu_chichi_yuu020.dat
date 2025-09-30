@@ -1,0 +1,50 @@
+import model diquarkVquark2023_UFO/ 
+#generate p p > suu, (suu > chi chi, (chi > w+ b, w+ > j j), (chi > w+ b, w+ > j j))
+generate p p > suu, (suu > chi chi)
+#generate p p > suu
+output /data/iduminic/diquark-signal/ATLAS_SGN/Chichi_FullHadro/TEST_ATLAS_suu_chichi_136_75_yuu020
+#y
+launch -n run_MSuu_136TeV_75
+shower=Pythia8
+detector=Delphes
+done
+set nevents 10000
+set MSuu 7500
+set ebeam1 6800
+set ebeam2 6800
+set cut_decays F
+set pdfwgt F
+set use_syst F
+set fixed_ren_scale F
+set fixed_fac_scale F
+compute_widths 9936661 9936662
+/data/iduminic/diquark-signal/ATLAS_SGN/Chichi_FullHadro/TEST_ATLAS_suu_chichi_136_75_yuu020/Cards/delphes_card_ATLAS.dat
+#launch -n run_MSuu_136TeV_75
+#set MSuu 7500
+#compute_widths 9936661 9936662
+#launch -n run_MSuu_136TeV_80
+#set MSuu 8000
+#compute_widths 9936661 9936662
+#launch -n run_MSuu_136TeV_85
+#set MSuu 8500
+#compute_widths 9936661 9936662
+#launch -n run_MSuu_140TeV_70
+#set ebeam1 7000
+#set ebeam2 7000
+#set MSuu 7000
+#compute_widths 9936661 9936662
+#launch -n run_MSuu_140TeV_75
+#set ebeam1 7000
+#set ebeam2 7000
+#set MSuu 7500
+#compute_widths 9936661 9936662
+#launch -n run_MSuu_140TeV_80
+#set ebeam1 7000
+#set ebeam2 7000
+#set MSuu 8000
+#compute_widths 9936661 9936662
+#launch -n run_MSuu_140TeV_85
+#set ebeam1 7000
+#set ebeam2 7000
+#set MSuu 8500
+#compute_widths 9936661 9936662

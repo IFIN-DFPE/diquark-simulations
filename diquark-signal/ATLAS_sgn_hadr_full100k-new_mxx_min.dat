@@ -1,0 +1,27 @@
+set lhapdf to /data/analysis/iduminic/MG5_aMC_v3_5_7/HEPTools/lhapdf6_py3/bin/lhapdf-config
+import model diquarkVquark2023_UFO/ 
+generate p p > suu, (suu > chi chi, (chi > w+ b, w+ > j j), (chi > w+ b, w+ > j j))
+output /data/analysis/iduminic/Test_ATLAS_Full_Hadr_130TeV_70TeV-3
+launch /data/analysis/iduminic/Test_ATLAS_Full_Hadr_130TeV_70TeV-3
+analysis=off
+1
+2
+0
+set nevents 1000
+set MSuu 7000
+set ebeam1 6500
+set ebeam2 6500
+set cut_decays false
+set mxx_min_pdg {'9936662':6500}
+launch
+set cut_decays false
+set mxx_min_pdg {'9936662':0.}
+launch
+set dsqrt_shat 6500.
+launch
+set dsqrt_shat 0.
+launch
+set cut_decays true
+set use_syst false
+/data/analysis/iduminic/Test_ATLAS_Full_Hadr_130TeV_70TeV/Cards/delphes_card_ATLAS.dat
+done

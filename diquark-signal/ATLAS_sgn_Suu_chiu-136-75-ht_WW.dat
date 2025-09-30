@@ -1,25 +1,25 @@
 set lhapdf to /data/iduminic/MG5_aMC_v3_5_7/HEPTools/lhapdf6_py3/bin/lhapdf-config
 import model diquarkVquark2023_UFO/
-generate p p > suu, (suu > chi u, (chi > w+ b, w+ > j j))
-output /data/iduminic/diquark-signal/ATLAS_SGN/ChiU_FullHadro/ATLAS_Suu_chiu_136TeV_yuu020_ychi030_yuchi010_Mchi_15/
-launch -n run_MSuu_136TeV_70
+define w = w+ w-
+generate p p > suu, (suu > chi u, (chi > h t, (h > w w, w > j j), (t > w b, w > j j)))
+#generate p p > suu, (suu > chi u, (chi > h t, h > b b~, (t > w+ b, w+ > j j)))
+output /data/iduminic/diquark-signal/ATLAS_SGN/ChiU_FullHadro/ATLAS_Suu_chiu_136TeV_70-875_ht_WW_ALL
+launch--name run_MSuu_136TeV_70
 shower=Pythia8
 detector=Delphes
-analysis=ExRoot
 done
 set nevents 100000
-set Mchi 1500
 set MSuu 7000
 set ebeam1 6800
 set ebeam2 6800
-#set bwcutoff 15
+#set bwcutoff 10
 set cut_decays F
 set pdfwgt F
 set use_syst F
 set fixed_ren_scale F
 set fixed_fac_scale F
 compute_widths 9936661 9936662
-/data/iduminic/diquark-signal/ATLAS_SGN/ChiU_FullHadro/ATLAS_Suu_chiu_136TeV_yuu020_ychi030_yuchi010_Mchi_15/Cards/delphes_card_ATLAS.dat
+/data/iduminic/diquark-signal/ATLAS_SGN/ChiU_FullHadro/ATLAS_Suu_chiu_136TeV_70-875_ht_WW_ALL/Cards/delphes_card_ATLAS.dat
 launch -n run_MSuu_136TeV_725
 set MSuu 7250
 compute_widths 9936661 9936662
@@ -41,5 +41,3 @@ compute_widths 9936661 9936662
 launch -n run_MSuu_136TeV_875
 set MSuu 8750
 compute_widths 9936661 9936662
-
-

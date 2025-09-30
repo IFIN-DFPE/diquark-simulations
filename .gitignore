@@ -1,3 +1,6 @@
 ATLAS_SGN_Suu_chichi/
 ATLAS_SGN_Suu_chiu/
 *.root
+models/
+output_files/
+delphes_card_ATLAS.dat
