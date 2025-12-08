@@ -1,0 +1,42 @@
+set run_mode 2
+set nb_core 120
+
+import model sm-full
+
+generate p p > t t~ j j, (t > w+ b, w+ > j j), (t~ > w- b~, w- > j j) QCD=99 QED=0
+
+output /data/gmajeri/diquark-simulations/background/ATLAS_data_136_ttbar_2jet_100k_htmin_MSuu_8TeV/
+
+launch -n run_ttbar
+shower=Pythia8
+detector=Delphes
+analysis=MadAnalysis5
+done
+
+set pdgs_for_merging_cut = 1, 2, 3, 4, 21
+set ickkw = 1
+set xqcut = 40
+set etaj = 5
+set ptj = 50
+set htjmin = 2400
+set nevents 100000
+set ebeam1 6800
+set ebeam2 6800
+
+set pythia8_card JetMatching:merge = on
+set pythia8_card JetMatching:scheme = 1
+set pythia8_card JetMatching:setMad = on
+set pythia8_card JetMatching:qCut = 60
+
+set pythia8_card JetMatching:exclusive = 1
+
+set pythia8_card JetMatching:nJetMax = 2
+
+set pythia8_card PartonLevel:MPI = on
+set pythia8_card PartonLevel:ISR = on
+set pythia8_card PartonLevel:FSR = on
+set pythia8_card HadronLevel:Hadronize = on
+
+set pythia8_card Parallelism:numThreads = 120
+
+/data/gmajeri/diquark-simulations/background/ATLAS_data_136_ttbar_2jet_100k_htmin_MSuu_8TeV/Cards/delphes_card_ATLAS.dat
