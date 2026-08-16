@@ -3,6 +3,9 @@
     "files.associations": {
         "*.madgraph.txt": "ini"
     },
+    "explorer.autoRevealExclude": {
+        "**/.venv": true
+    },
     "python.analysis.exclude": [
         "runs"
     ],
