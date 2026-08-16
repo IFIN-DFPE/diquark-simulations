@@ -12,6 +12,13 @@ dependencies = [
     "typer>=0.27.1",
 ]
 
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "ultraheavy_diquark"
+
 [tool.uv.sources]
 madgraph-script-generator = { git = "https://github.com/IFIN-DFPE/madgraph-script-generator" }
 
