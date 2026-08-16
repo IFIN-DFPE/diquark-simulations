@@ -6,8 +6,20 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "madgraph-script-generator",
+    "matplotlib>=3.11.1",
+    "numpy>=2.5.2",
+    "pandas>=3.0.5",
     "typer>=0.27.1",
 ]
 
 [tool.uv.sources]
 madgraph-script-generator = { git = "https://github.com/IFIN-DFPE/madgraph-script-generator" }
+
+[tool.ruff]
+exclude = [".venv", "scripts/diquarkVquark2023_UFO"]
+
+[tool.ruff.lint]
+ignore = [
+    # Don't reorder/organize imports
+    "I001",
+]
