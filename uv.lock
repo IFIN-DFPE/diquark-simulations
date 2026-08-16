@@ -254,7 +254,7 @@ wheels = [
 [[package]]
 name = "madgraph-script-generator"
 version = "0.1.0"
-source = { git = "https://github.com/IFIN-DFPE/madgraph-script-generator#8c7f98de0917701dd2b0eee95ab649f37a01d298" }
+source = { git = "https://github.com/IFIN-DFPE/madgraph-script-generator#a1b1e9e147c7800ff83e6c6eb3a4c4f35982d595" }
 dependencies = [
     { name = "tqdm" },
     { name = "typer" },
