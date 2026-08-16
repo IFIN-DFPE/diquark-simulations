@@ -1,0 +1,13 @@
+[project]
+name = "diquark-simulations"
+version = "0.1.0"
+description = "Simulated data generation scripts for the ultraheavy diquark studies."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "madgraph-script-generator",
+    "typer>=0.27.1",
+]
+
+[tool.uv.sources]
+madgraph-script-generator = { git = "https://github.com/IFIN-DFPE/madgraph-script-generator" }
