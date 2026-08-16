@@ -1,6 +1,34 @@
-ATLAS_SGN_Suu_chichi/
-ATLAS_SGN_Suu_chiu/
-*.root
-models/
-output_files/
-delphes_card_ATLAS.dat
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Default name for nohup output file
+nohup.out
+
+# SLURM output/error files
+*.out
+*.err
+
+# Run outputs
+/runs
+
+# Job log files
+*.log
+
+# MadGraph files, generated in the current directory when invoked
+py.py
+ME5_debug
+
+# Utility scripts
+/*.sh
+
+# Input and output data files
+*.csv
+*.pdf
