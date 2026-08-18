@@ -22,6 +22,7 @@ from ultraheavy_diquark import (
     TTBarBackgroundGenerator,
     DibosonBackgroundGenerator,
     SingleBosonBackgroundGenerator,
+    vector_boson_multiparticle_definition_commands,
 )
 
 
@@ -53,7 +54,7 @@ class WBZT_ProcessCommandsGenerator(SignalProcessCommandsGenerator):
     def process_generation_commands(self) -> list[MadGraphCommand]:
         return [
             GenerateProcessCommand(
-                "p p > suu, (suu > chi chi, (chi > w+ b, w+ > j j), (chi > h t, (h > b b~), (t > w+ b, w+ > j j)))"
+                "p p > suu, (suu > chi chi, (chi > w+ b, w+ > j j), (chi > z t, (z > j j), (t > w+ b, w+ > j j)))"
             )
         ]
 
@@ -127,8 +128,12 @@ class CombinedBackgroundProcessesCommandsGenerator(BackgroundProcessCommandsGene
 
     @override
     def process_generation_commands(self) -> list[MadGraphCommand]:
+        commands: list[MadGraphCommand] = (
+            vector_boson_multiparticle_definition_commands()
+        )
+
         # Start with QCD
-        commands: list[MadGraphCommand] = [
+        commands += [
             CommentCommand("Generate QCD 2->2"),
             GenerateProcessCommand("p p > j j"),
         ]
@@ -154,7 +159,7 @@ class CombinedBackgroundProcessesCommandsGenerator(BackgroundProcessCommandsGene
             jets = " ".join("j" * extra_jets)
             commands += [
                 CommentCommand("Generate v + jets background"),
-                GenerateProcessCommand(
+                AddProcessCommand(
                     f"p p > v{'' if extra_jets == 0 else ' ' + jets}, v > j j"
                 ),
             ]
@@ -164,7 +169,7 @@ class CombinedBackgroundProcessesCommandsGenerator(BackgroundProcessCommandsGene
             jets = " ".join("j" * extra_jets)
             commands += [
                 CommentCommand("Generate diboson + jets background"),
-                GenerateProcessCommand(
+                AddProcessCommand(
                     f"p p > v v{'' if extra_jets == 0 else ' ' + jets}, v > j j"
                 ),
             ]
@@ -258,16 +263,18 @@ def main(
     ):
         num_events_per_signal = 50_000 if small_sample else 200_000
     elif background_generation_strategy == BackgroundGenerationStrategy.ALL_TOGETHER:
-        num_events_per_signal = 200_000 if small_sample else 1_000_000
+        num_events_per_signal = 50_000 if small_sample else 1_000_000
+    else:
+        raise Exception(
+            f"Unknown background generation strategy: '{background_generation_strategy}'"
+        )
 
     for signal_name, generator in signals.items():
         if (
             signal_name in signals_with_small_cross_sections
             and not include_signals_with_small_cross_sections
         ):
-            print(
-                f"Skipping signal {signal_name} due to small cross section (use --include-signals-with-small-cross-sections to include it)"
-            )
+            print(f"Skipping signal {signal_name} due to small cross section")
             continue
 
         output_path = madgraph_output_directory / "signal" / signal_name
@@ -339,13 +346,31 @@ def main(
         ).save_to_file(background_scripts_output_path / "diboson.madgraph.txt")
 
     elif background_generation_strategy == BackgroundGenerationStrategy.ALL_TOGETHER:
-        CombinedBackgroundProcessesCommandsGenerator(
-            backgrounds_output_path / "combined",
-            suu_mass,
-            seed=seed,
-            delphes_card_path=delphes_card,
-            num_events=200_000 if small_sample else 2_000_000,
-        ).save_to_file(background_scripts_output_path / "combined.madgraph.txt")
+        if small_sample:
+            CombinedBackgroundProcessesCommandsGenerator(
+                backgrounds_output_path / "combined",
+                suu_mass,
+                seed=seed,
+                delphes_card_path=delphes_card,
+                num_events=200_000,
+            ).save_to_file(background_scripts_output_path / "combined.madgraph.txt")
+
+        else:
+            CombinedBackgroundProcessesCommandsGenerator(
+                backgrounds_output_path / "all_1",
+                suu_mass,
+                seed=seed,
+                delphes_card_path=delphes_card,
+                num_events=1_000_000,
+            ).save_to_file(background_scripts_output_path / "all_1.madgraph.txt")
+
+            CombinedBackgroundProcessesCommandsGenerator(
+                backgrounds_output_path / "all_2",
+                suu_mass,
+                seed=seed + 12345,
+                delphes_card_path=delphes_card,
+                num_events=1_000_000,
+            ).save_to_file(background_scripts_output_path / "all_2.madgraph.txt")
 
 
 if __name__ == "__main__":
