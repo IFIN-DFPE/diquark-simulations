@@ -63,10 +63,16 @@ class CommandsGenerator(ABC):
     ) -> list[MadGraphCommand]:
         commands: list[MadGraphCommand] = []
 
+        num_cores = 128
+        num_cores_delphes = 128
+
         commands += [
             CommentCommand("Configure parallelism"),
             SetCommand("run_mode", "2"),
-            SetCommand("nb_core", "128"),
+            SetCommand("nb_core", str(num_cores)),
+            # Explicitly set the `nb_cores_delphes` setting,
+            # to enable Delphes step parallelisation.
+            SetCommand("nb_core_delphes", str(num_cores_delphes)),
         ]
 
         if not isinstance(self, SignalProcessCommandsGenerator):

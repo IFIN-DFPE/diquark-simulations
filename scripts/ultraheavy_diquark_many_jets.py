@@ -122,7 +122,7 @@ class CombinedBackgroundProcessesCommandsGenerator(BackgroundProcessCommandsGene
         suu_mass: float,
         seed: int | None = None,
         delphes_card_path: Path | None = None,
-        num_events: int = 2_000_000,
+        num_events: int = 1_000_000,
     ) -> None:
         super().__init__(output_path, suu_mass, seed, delphes_card_path, num_events)
 
@@ -151,7 +151,9 @@ class CombinedBackgroundProcessesCommandsGenerator(BackgroundProcessCommandsGene
             jets = " ".join("j" * extra_jets)
             commands += [
                 CommentCommand(f"Generate ttbar + {extra_jets} jets"),
-                AddProcessCommand(f"p p > t t~{'' if extra_jets == 0 else ' ' + jets}"),
+                AddProcessCommand(
+                    f"p p > t t~{'' if extra_jets == 0 else ' ' + jets}, (t > w+ b, w+ > j j), (t~ > w- b~, w- > j j)"
+                ),
             ]
 
         # Generate single boson + jets
@@ -224,7 +226,7 @@ def main(
     seed: Annotated[int, typer.Option(help="Random seed for reproducibility")] = 42,
 ) -> None:
     output_directory = output_directory.resolve()
-    output_directory = output_directory / f"Suu_{suu_mass:.1g}TeV"
+    output_directory = output_directory / f"Suu_{suu_mass:.4g}TeV"
 
     scripts_output_directory = output_directory / "scripts"
     madgraph_output_directory = output_directory / "data"
@@ -254,6 +256,7 @@ def main(
     signals_with_small_cross_sections = {
         "Suu_chichi_htht_wwt_wwt",
         "Suu_chichi_wbht_jjb_wwtt",
+        "Suu_chichi_ztzt",
         "Suu_chichi_ztht_jjt_wwt",
     }
 
