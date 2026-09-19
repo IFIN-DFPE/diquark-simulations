@@ -375,6 +375,22 @@ def main(
                 num_events=1_000_000,
             ).save_to_file(background_scripts_output_path / "all_2.madgraph.txt")
 
+            CombinedBackgroundProcessesCommandsGenerator(
+                backgrounds_output_path / "all_3",
+                suu_mass,
+                seed=seed + 2 * 12345,
+                delphes_card_path=delphes_card,
+                num_events=1_000_000,
+            ).save_to_file(background_scripts_output_path / "all_3.madgraph.txt")
+
+            CombinedBackgroundProcessesCommandsGenerator(
+                backgrounds_output_path / "all_4",
+                suu_mass,
+                seed=seed + 3 * 12345,
+                delphes_card_path=delphes_card,
+                num_events=1_000_000,
+            ).save_to_file(background_scripts_output_path / "all_4.madgraph.txt")
+
 
 if __name__ == "__main__":
     typer.run(main)
