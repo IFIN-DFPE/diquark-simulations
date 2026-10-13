@@ -71,13 +71,28 @@ def extract_cross_section(contents: str) -> float | None:
 
 
 def main(
-    logs_directory: Annotated[
-        Path, typer.Argument(help="Directory where to look for MadGraph log files")
+    logs_directories: Annotated[
+        list[Path],
+        typer.Argument(help="Directories where to look for MadGraph log files"),
     ],
 ) -> None:
     "Extracts information from MadGraph log files and prints it to the console."
+    if len(logs_directories) == 0:
+        print("[red]No logs directories provided[/red]")
+        raise typer.Exit(code=1)
 
-    paths = list(logs_directory.glob("*.log"))
+    paths: list[Path] = []
+    for logs_directory in logs_directories:
+        if not logs_directory.exists():
+            print(f"[red]Logs directory '{logs_directory}' does not exist[/red]")
+            raise typer.Exit(code=1)
+
+        if not logs_directory.is_dir():
+            print(f"[red]Logs directory '{logs_directory}' is not a directory[/red]")
+            raise typer.Exit(code=1)
+
+        paths.extend(logs_directory.glob("**/*.log"))
+
     paths = sorted(paths)
 
     for log_file_path in paths:
