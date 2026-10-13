@@ -106,7 +106,7 @@ def main(
     seed: Annotated[int, typer.Option(help="Random seed for reproducibility")] = 123,
 ) -> None:
     output_directory = output_directory.resolve()
-    output_directory = output_directory / f"Suu_{suu_mass:.1g}TeV"
+    output_directory = output_directory / f"Suu_{suu_mass:.2f}TeV"
 
     scripts_output_directory = output_directory / "scripts"
     madgraph_output_directory = output_directory / "data"
@@ -121,7 +121,7 @@ def main(
 
     print("Generating script for S_{uu} -> \\chi \\chi -> Wb Wb process...")
 
-    signal_name = f"Suu_chichi_WbWb_MSuu_{suu_mass:.1g}TeV"
+    signal_name = f"Suu_chichi_WbWb_MSuu_{suu_mass:.2f}TeV"
 
     signal_script_path = (
         scripts_output_directory / "signal" / f"{signal_name}.madgraph.txt"
