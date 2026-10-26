@@ -5,6 +5,7 @@ import signal
 import subprocess
 from textwrap import dedent
 from types import FrameType
+from typing import Annotated
 
 from tqdm import tqdm
 import typer
@@ -12,7 +13,12 @@ import typer
 from madgraph_script_generator.runner import run_madgraph
 
 
-def launch_slurm_jobs(script_file_paths: Iterable[Path], skip_existing: bool) -> None:
+def launch_slurm_jobs(
+    script_file_paths: Iterable[Path],
+    skip_existing: bool,
+    slurm_account: str | None,
+    slurm_partition: str | None,
+) -> None:
     for script_file_path in script_file_paths:
         script_file_path = script_file_path.resolve()
         script_name = script_file_path.name
@@ -32,7 +38,9 @@ def launch_slurm_jobs(script_file_paths: Iterable[Path], skip_existing: bool) ->
 
         #SBATCH --nodes=1
         #SBATCH --cpus-per-task 256
-        #SBATCH --time 08:00:00
+        #SBATCH --time 24:00:00
+        {f"#SBATCH --account={slurm_account}" if slurm_account else ""}
+        {f"#SBATCH --partition={slurm_partition}" if slurm_partition else ""}
         #SBATCH --job-name MadGraph_{script_name}
 
         mg5_aMC  {script_file_path} &> {output_file_path}
@@ -93,10 +101,33 @@ def run_scripts(script_file_paths: Iterable[Path], skip_existing: bool) -> None:
 
 
 def main(
-    scripts_directory_path: Path,
-    script_file_extension: str = ".madgraph.txt",
-    skip_existing: bool = False,
-    slurm: bool = False,
+    scripts_directory_path: Annotated[
+        Path,
+        typer.Argument(help="The directory containing the script files to run"),
+    ],
+    script_file_extension: Annotated[
+        str,
+        typer.Option(
+            "--script-file-extension",
+            help="The file extension of the script files to run",
+        ),
+    ] = ".madgraph.txt",
+    skip_existing: Annotated[
+        bool,
+        typer.Option(
+            "--skip-existing",
+            help="Skip running jobs for which output files already exist",
+        ),
+    ] = False,
+    slurm: Annotated[
+        bool, typer.Option("--slurm", help="Run scripts as SLURM jobs")
+    ] = True,
+    slurm_account: Annotated[
+        str | None, typer.Option(help="SLURM account to use for job submission")
+    ] = "acc-c-fiz-26-001",
+    slurm_partition: Annotated[
+        str | None, typer.Option(help="SLURM partition to use for job submission")
+    ] = "cpu-wide",
 ) -> None:
     if not scripts_directory_path.exists():
         print("Provided scripts directory doesn't exist")
@@ -115,7 +146,7 @@ def main(
 
     if slurm:
         print("Running each script as an independent job through SLURM")
-        launch_slurm_jobs(script_files, skip_existing)
+        launch_slurm_jobs(script_files, skip_existing, slurm_account, slurm_partition)
     else:
         print("Running scripts on local machine")
         run_scripts(script_files, skip_existing)

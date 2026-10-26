@@ -17,11 +17,11 @@ from madgraph_script_generator.commands import (
 
 from ultraheavy_diquark import (
     BackgroundProcessCommandsGenerator,
+    QCDMultijetBackgroundGenerator,
     SignalProcessCommandsGenerator,
-    QCDBackgroundGenerator,
+    SingleBosonBackgroundGenerator,
     TTBarBackgroundGenerator,
     DibosonBackgroundGenerator,
-    SingleBosonBackgroundGenerator,
     vector_boson_multiparticle_definition_commands,
 )
 
@@ -156,16 +156,6 @@ class CombinedBackgroundProcessesCommandsGenerator(BackgroundProcessCommandsGene
                 ),
             ]
 
-        # Generate single boson + jets
-        for extra_jets in range(0, 2):
-            jets = " ".join("j" * extra_jets)
-            commands += [
-                CommentCommand("Generate v + jets background"),
-                AddProcessCommand(
-                    f"p p > v{'' if extra_jets == 0 else ' ' + jets}, v > j j"
-                ),
-            ]
-
         # Generate diboson + jets
         for extra_jets in range(0, 2):
             jets = " ".join("j" * extra_jets)
@@ -222,7 +212,7 @@ def main(
     background_generation_strategy: Annotated[
         BackgroundGenerationStrategy,
         typer.Option(help="Strategy for generating background processes"),
-    ] = BackgroundGenerationStrategy.ALL_TOGETHER,
+    ] = BackgroundGenerationStrategy.GROUP_BY_PROCESS_TYPE,
     seed: Annotated[int, typer.Option(help="Random seed for reproducibility")] = 42,
 ) -> None:
     output_directory = output_directory.resolve()
@@ -264,7 +254,7 @@ def main(
         background_generation_strategy
         == BackgroundGenerationStrategy.GROUP_BY_PROCESS_TYPE
     ):
-        num_events_per_signal = 50_000 if small_sample else 200_000
+        num_events_per_signal = 50_000 if small_sample else 600_000
     elif background_generation_strategy == BackgroundGenerationStrategy.ALL_TOGETHER:
         num_events_per_signal = 50_000 if small_sample else 1_000_000
     else:
@@ -302,24 +292,14 @@ def main(
         background_generation_strategy
         == BackgroundGenerationStrategy.GROUP_BY_PROCESS_TYPE
     ):
-        qcd_counts: dict[int, int] = {
-            2: 100_000,
-            3: 200_000,
-            4: 500_000,
-            # 5: 500_000,
-        }
-        max_jets = max(qcd_counts.keys())
-
-        for num_jets in range(2, max_jets):
-            QCDBackgroundGenerator(
-                backgrounds_output_path / f"qcd_2_to_{num_jets}",
-                suu_mass,
-                num_jets=num_jets,
-                seed=seed,
-                num_events=50_000 if small_sample else qcd_counts[num_jets],
-            ).save_to_file(
-                background_scripts_output_path / f"qcd_2_to_{num_jets}.madgraph.txt"
-            )
+        QCDMultijetBackgroundGenerator(
+            backgrounds_output_path / "qcd",
+            suu_mass,
+            max_jets=4,
+            seed=seed,
+            delphes_card_path=delphes_card,
+            num_events=100_000 if small_sample else 1_000_000,
+        ).save_to_file(background_scripts_output_path / "qcd.madgraph.txt")
 
         TTBarBackgroundGenerator(
             backgrounds_output_path / "ttbar",
@@ -327,16 +307,16 @@ def main(
             max_extra_jets=2,
             seed=seed,
             delphes_card_path=delphes_card,
-            num_events=50_000 if small_sample else 200_000,
+            num_events=75_000 if small_sample else 500_000,
         ).save_to_file(background_scripts_output_path / "ttbar.madgraph.txt")
 
         SingleBosonBackgroundGenerator(
             backgrounds_output_path / "single_boson",
             suu_mass,
-            max_extra_jets=1,
+            max_extra_jets=2,
             seed=seed,
             delphes_card_path=delphes_card,
-            num_events=50_000 if small_sample else 100_000,
+            num_events=75_000 if small_sample else 500_000,
         ).save_to_file(background_scripts_output_path / "single_boson.madgraph.txt")
 
         DibosonBackgroundGenerator(
@@ -345,7 +325,7 @@ def main(
             max_extra_jets=1,
             seed=seed,
             delphes_card_path=delphes_card,
-            num_events=50_000 if small_sample else 100_000,
+            num_events=50_000 if small_sample else 350_000,
         ).save_to_file(background_scripts_output_path / "diboson.madgraph.txt")
 
     elif background_generation_strategy == BackgroundGenerationStrategy.ALL_TOGETHER:
