@@ -763,25 +763,25 @@ module UniqueObjectFinder UniqueObjectFinder {
 # "add Branch ..." lines.
 module TreeWriter TreeWriter {
 # add Branch InputArray BranchName BranchClass
-  add Branch Delphes/allParticles Particle GenParticle
+#  add Branch Delphes/allParticles Particle GenParticle
 
 #  add Branch TrackMerger/tracks Track Track
-  add Branch Calorimeter/towers Tower Tower
+#  add Branch Calorimeter/towers Tower Tower
 
 #  add Branch Calorimeter/eflowTracks EFlowTrack Track
 #  add Branch Calorimeter/eflowPhotons EFlowPhoton Tower
 #  add Branch Calorimeter/eflowNeutralHadrons EFlowNeutralHadron Tower
-  add Branch EFlowMerger/eflow ParticleFlowCandidate ParticleFlowCandidate
-  add Branch GenJetFinder/jets GenJet Jet
-  add Branch GenMissingET/momentum GenMissingET MissingET
+#  add Branch EFlowMerger/eflow ParticleFlowCandidate ParticleFlowCandidate
+#  add Branch GenJetFinder/jets GenJet Jet
+#  add Branch GenMissingET/momentum GenMissingET MissingET
 
   add Branch UniqueObjectFinder/jets Jet Jet
-  add Branch UniqueObjectFinder/electrons Electron Electron
-  add Branch UniqueObjectFinder/photons Photon Photon
-  add Branch UniqueObjectFinder/muons Muon Muon
-  add Branch MissingET/momentum MissingET MissingET
-  add Branch ScalarHT/energy ScalarHT ScalarHT
-  add Branch Rho/rho Rho Rho
-  add Branch PileUpMerger/vertices Vertex Vertex
+#  add Branch UniqueObjectFinder/electrons Electron Electron
+#  add Branch UniqueObjectFinder/photons Photon Photon
+#  add Branch UniqueObjectFinder/muons Muon Muon
+#  add Branch MissingET/momentum MissingET MissingET
+#  add Branch ScalarHT/energy ScalarHT ScalarHT
+#  add Branch Rho/rho Rho Rho
+#  add Branch PileUpMerger/vertices Vertex Vertex
 
 }

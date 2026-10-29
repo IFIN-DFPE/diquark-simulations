@@ -328,6 +328,7 @@ module TrackPileUpSubtractor TrackPileUpSubtractor {
   add InputArray ElectronFilter/electrons electrons
   add InputArray MuonMomentumSmearing/muons muons
 
+  set VertexInputArray PileUpMerger/vertices
   set ZVertexResolution {0.0001}
 }
 
@@ -382,10 +383,10 @@ module RunPUPPI RunPUPPIBase {
   add ConeSizeBin         0.4   0.4
   add RMSPtMinBin         0.1   0.5
   add RMSScaleFactorBin   1.0   1.0
-  add NeutralMinEBin      0.2   0.2
-  add NeutralPtSlope      0.006 0.013
+  add NeutralMinEBin      0.2   0.5
+  add NeutralPtSlope      0.006 0.067
   add ApplyCHS            true  true
-  add UseCharged          true  true
+  add UseCharged          true  false
   add ApplyLowPUCorr      true  true
   add MetricId            5     5
   add CombId              0     0
@@ -637,17 +638,17 @@ module UniqueObjectFinder UniqueObjectFinder {
 # ROOT tree writer
 ##################
 module TreeWriter TreeWriter {
-  add Branch Delphes/allParticles Particle GenParticle
+#  add Branch Delphes/allParticles Particle GenParticle
 
-  add Branch RunPUPPI/PuppiParticles PuppiParticles ParticleFlowCandidate
-  add Branch GenJetFinder/jets GenJet Jet
-  add Branch GenMissingET/momentum GenMissingET MissingET
+#  add Branch RunPUPPI/PuppiParticles PuppiParticles ParticleFlowCandidate
+#  add Branch GenJetFinder/jets GenJet Jet
+#  add Branch GenMissingET/momentum GenMissingET MissingET
 
   add Branch UniqueObjectFinder/jets Jet Jet
-  add Branch UniqueObjectFinder/electrons Electron Electron
-  add Branch UniqueObjectFinder/photons Photon Photon
-  add Branch UniqueObjectFinder/muons Muon Muon
-  add Branch MissingET/momentum MissingET MissingET
-  add Branch ScalarHT/energy ScalarHT ScalarHT
-  add Branch PileUpMerger/vertices Vertex Vertex
+#  add Branch UniqueObjectFinder/electrons Electron Electron
+#  add Branch UniqueObjectFinder/photons Photon Photon
+#  add Branch UniqueObjectFinder/muons Muon Muon
+#  add Branch MissingET/momentum MissingET MissingET
+#  add Branch ScalarHT/energy ScalarHT ScalarHT
+#  add Branch PileUpMerger/vertices Vertex Vertex
 }
