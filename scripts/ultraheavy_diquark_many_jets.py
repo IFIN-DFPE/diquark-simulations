@@ -202,13 +202,12 @@ def main(
             help="Whether to include signals with small cross sections in the generation",
         ),
     ] = False,
-    enable_pileup: Annotated[
-        bool,
+    delphes_card: Annotated[
+        Path | None,
         typer.Option(
-            "--pileup/--no-pileup",
-            help="Whether to include pileup interactions in the generated samples",
+            help="Path to the Delphes card to use for the generated samples",
         ),
-    ] = False,
+    ] = None,
     background_generation_strategy: Annotated[
         BackgroundGenerationStrategy,
         typer.Option(help="Strategy for generating background processes"),
@@ -225,12 +224,6 @@ def main(
 
     signal_scripts_output_path = scripts_output_directory / "signal"
     signal_scripts_output_path.mkdir(parents=True, exist_ok=True)
-
-    delphes_card: Path | None = None
-    if enable_pileup:
-        delphes_card = Path(
-            "/data/gmajeri/diquark-simulations/pileup/delphes_card_ATLAS_PileUp.tcl"
-        )
 
     signals: dict[str, type[SignalProcessCommandsGenerator]] = {
         "Suu_chichi_htht_wwt_wwt": HTHT_WWTWWT_ProcessCommandsGenerator,
