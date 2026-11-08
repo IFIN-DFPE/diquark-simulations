@@ -6,7 +6,6 @@
 #######################################
 # Order of execution of various modules
 #######################################
-
 set ExecutionPath {
   PileUpMerger
   ParticlePropagator
@@ -57,10 +56,10 @@ set ExecutionPath {
   TreeWriter
 }
 
+
 ###############
 # PileUp Merger
 ###############
-
 module PileUpMerger PileUpMerger {
   set InputArray Delphes/stableParticles
 
@@ -83,10 +82,10 @@ module PileUpMerger PileUpMerger {
   set VertexDistributionFormula {exp(-(t^2/160e-12^2/2))*exp(-(z^2/0.053^2/2))}
 }
 
+
 #################################
 # Propagate particles in cylinder
 #################################
-
 module ParticlePropagator ParticlePropagator {
   set InputArray PileUpMerger/stableParticles
 
@@ -104,10 +103,10 @@ module ParticlePropagator ParticlePropagator {
   set Bz 2.0
 }
 
+
 ####################################
 # Charged hadron tracking efficiency
 ####################################
-
 module Efficiency ChargedHadronTrackingEfficiency {
   set InputArray ParticlePropagator/chargedHadrons
   set OutputArray chargedHadrons
@@ -121,10 +120,10 @@ module Efficiency ChargedHadronTrackingEfficiency {
                          (abs(eta) > 2.5)                                                  * (0.00)}
 }
 
+
 ##############################
 # Electron tracking efficiency
 ##############################
-
 module Efficiency ElectronTrackingEfficiency {
   set InputArray ParticlePropagator/electrons
   set OutputArray electrons
@@ -140,10 +139,10 @@ module Efficiency ElectronTrackingEfficiency {
                          (abs(eta) > 2.5)                                                  * (0.00)}
 }
 
+
 ##########################
 # Muon tracking efficiency
 ##########################
-
 module Efficiency MuonTrackingEfficiency {
   set InputArray ParticlePropagator/muons
   set OutputArray muons
@@ -157,10 +156,10 @@ module Efficiency MuonTrackingEfficiency {
                          (abs(eta) > 2.5)                                                  * (0.00)}
 }
 
+
 ########################################
 # Momentum resolution for charged tracks
 ########################################
-
 module MomentumSmearing ChargedHadronMomentumSmearing {
   set InputArray ChargedHadronTrackingEfficiency/chargedHadrons
   set OutputArray chargedHadrons
@@ -171,10 +170,10 @@ module MomentumSmearing ChargedHadronMomentumSmearing {
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.25^2 + pt^2*3.1e-3^2)}
 }
 
+
 ###################################
 # Momentum resolution for electrons
 ###################################
-
 module MomentumSmearing ElectronMomentumSmearing {
   set InputArray ElectronTrackingEfficiency/electrons
   set OutputArray electrons
@@ -185,10 +184,10 @@ module MomentumSmearing ElectronMomentumSmearing {
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.15^2 + pt^2*3.1e-3^2)}
 }
 
+
 ###############################
 # Momentum resolution for muons
 ###############################
-
 module MomentumSmearing MuonMomentumSmearing {
   set InputArray MuonTrackingEfficiency/muons
   set OutputArray muons
@@ -199,10 +198,10 @@ module MomentumSmearing MuonMomentumSmearing {
                          (abs(eta) > 1.5 && abs(eta) <= 2.5) * (pt > 0.1) * sqrt(0.025^2 + pt^2*3.5e-4^2)}
 }
 
+
 ##############
 # Track merger
 ##############
-
 module Merger TrackMerger {
   add InputArray ChargedHadronMomentumSmearing/chargedHadrons
   add InputArray ElectronMomentumSmearing/electrons
@@ -210,10 +209,10 @@ module Merger TrackMerger {
   set OutputArray tracks
 }
 
+
 #############
 # Calorimeter
 #############
-
 module Calorimeter Calorimeter {
   set ParticleInputArray ParticlePropagator/stableParticles
   set TrackInputArray TrackMerger/tracks
@@ -281,10 +280,10 @@ module Calorimeter Calorimeter {
                              (abs(eta) > 3.2 && abs(eta) <= 4.9) * sqrt(energy^2*0.09420^2 + energy*1.00^2)}
 }
 
+
 #################
 # Electron filter
 #################
-
 module PdgCodeFilter ElectronFilter {
   set InputArray Calorimeter/eflowTracks
   set OutputArray electrons
@@ -293,10 +292,10 @@ module PdgCodeFilter ElectronFilter {
   add PdgCode {-11}
 }
 
+
 ######################
 # ChargedHadronFilter
 ######################
-
 module PdgCodeFilter ChargedHadronFilter {
   set InputArray Calorimeter/eflowTracks
   set OutputArray chargedHadrons
@@ -307,10 +306,10 @@ module PdgCodeFilter ChargedHadronFilter {
   add PdgCode {-13}
 }
 
+
 ##########################
 # Track pile-up subtractor
 ##########################
-
 module TrackPileUpSubtractor TrackPileUpSubtractor {
   add InputArray Calorimeter/eflowTracks eflowTracks
   add InputArray ElectronFilter/electrons electrons
@@ -322,19 +321,19 @@ module TrackPileUpSubtractor TrackPileUpSubtractor {
   set ZVertexResolution {0.0001}
 }
 
+
 ####################################################
 # Energy flow merger (Primary-Vertex Charged Tracks)
 ####################################################
-
 module Merger EFlowMerger {
   add InputArray TrackPileUpSubtractor/eflowTracks
   set OutputArray eflow
 }
 
+
 ######################
 # EFlowFilter
 ######################
-
 module PdgCodeFilter EFlowFilter {
   set InputArray EFlowMerger/eflow
   set OutputArray eflow
@@ -345,10 +344,10 @@ module PdgCodeFilter EFlowFilter {
   add PdgCode {-13}
 }
 
+
 ###################
 # Photon efficiency
 ###################
-
 module Efficiency PhotonEfficiency {
   set InputArray Calorimeter/eflowPhotons
   set OutputArray photons
@@ -360,10 +359,10 @@ module Efficiency PhotonEfficiency {
                          (abs(eta) > 2.5)                                   * (0.00)}
 }
 
+
 ##################
 # Photon isolation
 ##################
-
 module Isolation PhotonIsolation {
   set CandidateInputArray PhotonEfficiency/photons
   set IsolationInputArray EFlowFilter/eflow
@@ -375,10 +374,10 @@ module Isolation PhotonIsolation {
   set PTRatioMax 0.12
 }
 
+
 #####################
 # Electron efficiency
 #####################
-
 module Efficiency ElectronEfficiency {
   set InputArray TrackPileUpSubtractor/electrons
   set OutputArray electrons
@@ -390,10 +389,10 @@ module Efficiency ElectronEfficiency {
                          (abs(eta) > 2.5)                                   * (0.00)}
 }
 
+
 ####################
 # Electron isolation
 ####################
-
 module Isolation ElectronIsolation {
   set CandidateInputArray ElectronEfficiency/electrons
   set IsolationInputArray EFlowFilter/eflow
@@ -405,10 +404,10 @@ module Isolation ElectronIsolation {
   set PTRatioMax 0.12
 }
 
+
 #################
 # Muon efficiency
 #################
-
 module Efficiency MuonEfficiency {
   set InputArray TrackPileUpSubtractor/muons
   set OutputArray muons
@@ -420,10 +419,10 @@ module Efficiency MuonEfficiency {
                          (abs(eta) > 2.7)                                   * (0.00)}
 }
 
+
 ################
 # Muon isolation
 ################
-
 module Isolation MuonIsolation {
   set CandidateInputArray MuonEfficiency/muons
   set IsolationInputArray EFlowFilter/eflow
@@ -435,19 +434,19 @@ module Isolation MuonIsolation {
   set PTRatioMax 0.25
 }
 
+
 ###################
 # Missing ET merger
 ###################
-
 module Merger MissingET {
   add InputArray EFlowMerger/eflow
   set MomentumOutputArray momentum
 }
 
+
 ##################
 # Scalar HT merger
 ##################
-
 module Merger ScalarHT {
   add InputArray UniqueObjectFinder/jets
   add InputArray UniqueObjectFinder/electrons
@@ -456,10 +455,10 @@ module Merger ScalarHT {
   set EnergyOutputArray energy
 }
 
+
 #####################
 # Neutrino Filter
 #####################
-
 module PdgCodeFilter NeutrinoFilter {
   set InputArray Delphes/stableParticles
   set OutputArray filteredParticles
@@ -474,10 +473,10 @@ module PdgCodeFilter NeutrinoFilter {
   add PdgCode {-16}
 }
 
+
 #####################
 # MC truth jet finder
 #####################
-
 module FastJetFinder GenJetFinder {
   set InputArray NeutrinoFilter/filteredParticles
 
@@ -490,19 +489,19 @@ module FastJetFinder GenJetFinder {
   set JetPTMin 20.0
 }
 
+
 #########################
 # Gen Missing ET merger
 #########################
-
 module Merger GenMissingET {
   add InputArray NeutrinoFilter/filteredParticles
   set MomentumOutputArray momentum
 }
 
+
 ##########################
 # Jet finder (Track-Jets)
 ##########################
-
 module FastJetFinder FastJetFinder {
   set InputArray TrackPileUpSubtractor/eflowTracks
 
@@ -515,10 +514,10 @@ module FastJetFinder FastJetFinder {
   set JetPTMin 20.0
 }
 
+
 ##################
 # Jet Energy Scale
 ##################
-
 module EnergyScale JetEnergyScale {
   set InputArray FastJetFinder/jets
   set OutputArray jets
@@ -527,10 +526,10 @@ module EnergyScale JetEnergyScale {
   set ScaleFormula {  sqrt( (3.0 - 0.2*(abs(eta)))^2 / pt + 1.0 )  }
 }
 
+
 ########################
 # Jet Flavor Association
 ########################
-
 module JetFlavorAssociation JetFlavorAssociation {
   set PartonInputArray Delphes/partons
   set ParticleInputArray Delphes/allParticles
@@ -542,10 +541,10 @@ module JetFlavorAssociation JetFlavorAssociation {
   set PartonEtaMax 2.5
 }
 
+
 ###########
 # b-tagging
 ###########
-
 module BTagging BTagging {
   set JetInputArray JetEnergyScale/jets
 
@@ -562,10 +561,10 @@ module BTagging BTagging {
   add EfficiencyFormula {5} {0.80*tanh(0.003*pt)*(30/(1+0.086*pt))}
 }
 
+
 #############
 # tau-tagging
 #############
-
 module TrackCountingTauTagging TauTagging {
   set ParticleInputArray Delphes/allParticles
   set PartonInputArray Delphes/partons
@@ -589,10 +588,10 @@ module TrackCountingTauTagging TauTagging {
   add EfficiencyFormula {-2} {0.01}
 }
 
+
 #####################################################
 # Find uniquely identified photons/electrons/tau/jets
 #####################################################
-
 module UniqueObjectFinder UniqueObjectFinder {
   add InputArray PhotonIsolation/photons photons
   add InputArray ElectronIsolation/electrons electrons
@@ -600,10 +599,10 @@ module UniqueObjectFinder UniqueObjectFinder {
   add InputArray JetEnergyScale/jets jets
 }
 
+
 ##################
 # ROOT tree writer
 ##################
-
 module TreeWriter TreeWriter {
 #  add Branch Delphes/allParticles Particle GenParticle
 
