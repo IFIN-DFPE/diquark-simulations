@@ -1,9 +1,10 @@
 from __future__ import annotations
 import re
 from pathlib import Path
+import sys
 from typing import Annotated
 
-from rich import print
+from rich import get_console, print
 import typer
 
 from madgraph_script_generator.madgraph_logs import (
@@ -75,8 +76,19 @@ def main(
         list[Path],
         typer.Argument(help="Directories where to look for MadGraph log files"),
     ],
+    log_file_extension: Annotated[
+        str,
+        typer.Option(
+            "--log-file-extension",
+            help="The file extension of the log files to process",
+        ),
+    ] = ".madgraph.log",
 ) -> None:
     "Extracts information from MadGraph log files and prints it to the console."
+    if not sys.stdout.isatty():
+        console = get_console()
+        console.width = 99999
+
     if len(logs_directories) == 0:
         print("[red]No logs directories provided[/red]")
         raise typer.Exit(code=1)
@@ -91,7 +103,7 @@ def main(
             print(f"[red]Logs directory '{logs_directory}' is not a directory[/red]")
             raise typer.Exit(code=1)
 
-        paths.extend(logs_directory.glob("**/*.log"))
+        paths.extend(logs_directory.glob(f"**/*{log_file_extension}"))
 
     paths = sorted(paths)
 

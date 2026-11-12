@@ -32,3 +32,7 @@ ME5_debug
 # Input and output data files
 *.csv
 *.pdf
+*.png
+
+# Plots directory
+/plots

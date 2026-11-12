@@ -124,8 +124,10 @@ source = { editable = "." }
 dependencies = [
     { name = "madgraph-script-generator" },
     { name = "matplotlib" },
+    { name = "mplhep" },
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pandas-stubs" },
     { name = "typer" },
 ]
 
@@ -133,8 +135,10 @@ dependencies = [
 requires-dist = [
     { name = "madgraph-script-generator", git = "https://github.com/IFIN-DFPE/madgraph-script-generator" },
     { name = "matplotlib", specifier = ">=3.11.1" },
+    { name = "mplhep", specifier = ">=1.3.3" },
     { name = "numpy", specifier = ">=2.5.2" },
     { name = "pandas", specifier = ">=3.0.5" },
+    { name = "pandas-stubs", specifier = ">=3.1.0.261029" },
     { name = "typer", specifier = ">=0.27.1" },
 ]
 
@@ -404,6 +408,30 @@ wheels = [
 ]
 
 [[package]]
+name = "mplhep"
+version = "1.3.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "matplotlib" },
+    { name = "mplhep-data" },
+    { name = "numpy" },
+    { name = "uhi" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d4/13/4e6c72db7f938d5a00a17809dd82237fa93e47f2ccf29020993b8d454026/mplhep-1.3.3.tar.gz", hash = "sha256:a7d0ec076b0136544f5d3b658948df68990673824d0aeda7bfa8d2fba9f8c34c", size = 4857782, upload-time = "2026-08-15T07:32:12.68Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bf/4e/cf1700cf7caa92f3fc492d35558e5a0b928b8d24bdf7340023a1c4b7e4cf/mplhep-1.3.3-py3-none-any.whl", hash = "sha256:d2fae11a1f1f57946895cf89800e0ac16c03ed4de4d4a76a4bd2d2ff6052ae7e", size = 93749, upload-time = "2026-08-15T07:32:10.505Z" },
+]
+
+[[package]]
+name = "mplhep-data"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/31/fb/f5b3c979f13c67a04e186909c6fe45db056af8aa108191e5330ec17ac6d8/mplhep_data-0.1.0.tar.gz", hash = "sha256:bf9cdcc65c3a9ce7d8f0e3078ff659ef3fcfde119e625a0f71f21b06edabc4c9", size = 9128293, upload-time = "2026-06-04T09:57:41.8Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/46/b3/9fd3f0124db0fba54be9913f1f9292b8d1ace59948b379b66c6c33f2d291/mplhep_data-0.1.0-py3-none-any.whl", hash = "sha256:0757bbdf5707d68ae03cd980e043f1b8d176aea766dc6c33338a572c20e20755", size = 9131737, upload-time = "2026-06-04T09:57:38.779Z" },
+]
+
+[[package]]
 name = "numpy"
 version = "2.5.4"
 source = { registry = "https://pypi.org/simple" }
@@ -545,6 +573,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/4b/1a/01d622913e6a65d447eb9a42d1ed71d2a50c4244de24091128aaab023875/pandas-3.1.1-cp315-cp315t-musllinux_1_2_x86_64.whl", hash = "sha256:daf86c882e376ae2a8a459b2f769258d2b6d75e09f6327440cf6eb8d425c5ceb", size = 12913291, upload-time = "2026-11-04T15:07:54.651Z" },
     { url = "https://files.pythonhosted.org/packages/69/73/76b46776b10c6ff7c2037e3748eeb713df8391a34b7768efa81a08c2a77a/pandas-3.1.1-cp315-cp315t-win_amd64.whl", hash = "sha256:f89fb8e88cc5791995cc076c526eac605adc157b6ac6cc619a33ddd0b8bf5871", size = 11273592, upload-time = "2026-11-04T15:07:57.141Z" },
     { url = "https://files.pythonhosted.org/packages/08/ab/cce173d73200410f06306a89dbbb5f2125bd64f66ca5eff393d53d813288/pandas-3.1.1-cp315-cp315t-win_arm64.whl", hash = "sha256:4e6f9a3036fc6a40c5ba00efe4092a45844212bdb6a63eda4ad5a5a4c8da45eb", size = 10604158, upload-time = "2026-11-04T15:07:59.733Z" },
+]
+
+[[package]]
+name = "pandas-stubs"
+version = "3.1.0.261029"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f9/f8/0346629264426a6693affbc9a0fb52143acfa38112d569f68da514ea503a/pandas_stubs-3.1.0.261029.tar.gz", hash = "sha256:dcfb5b14d399beae72cce558db6d2a0d89c10301275557f1c00d5393e9cb190e", size = 119466, upload-time = "2026-10-29T17:09:31.352Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c0/2c/ecbc04b2a8d05d737351a54398f843223cb66edf42ec5c0fcc6198f17d3a/pandas_stubs-3.1.0.261029-py3-none-any.whl", hash = "sha256:70f631f2d0781c4500b1cd5f84cab7d7279a3d114674d69655536a4a99a3a67f", size = 179851, upload-time = "2026-10-29T17:09:30.112Z" },
 ]
 
 [[package]]
@@ -718,4 +758,16 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/7a/29/6a1391d31cd00ff9e927215a224a880e1e84e826b64ba80a499e51c074d8/tzdata-2026.6.tar.gz", hash = "sha256:85d2cd9c09f81f0bb29db27759fc83af4f1e620efb814f8c5bf8b4cc4feece6d", size = 201017, upload-time = "2026-10-28T09:57:09.137Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0a/66/9a06c2227fedfd4919f0eaaa8b94377d9730882a7e4f95823c9a331ab5e1/tzdata-2026.6-py2.py3-none-any.whl", hash = "sha256:0a10eec6e13ef16b627fabed9a5f2ba61a62b1c67f327305f4e7e412a70b4aec", size = 348210, upload-time = "2026-10-28T09:57:07.276Z" },
+]
+
+[[package]]
+name = "uhi"
+version = "1.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cb/06/3a8ad05bbaea453129bafaf6d0271fabf59e53b7757cdc8cd58144b684f1/uhi-1.2.1.tar.gz", hash = "sha256:fc6ee5b2457af544d89804ef5f5530ca5fc948a52e3168cd5c4539b03a742dce", size = 80299, upload-time = "2026-10-07T20:19:21.08Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4d/ed/f2df559229b8da8aef6adc554e2fd3a0906593d382cfb2b95aec235ddda4/uhi-1.2.1-py3-none-any.whl", hash = "sha256:063c36d9383d6e1e33ecc0c8b17a01be271012b9c86f11d21afcb8290c23e804", size = 39200, upload-time = "2026-10-07T20:19:19.613Z" },
 ]
